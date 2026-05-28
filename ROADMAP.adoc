@@ -1,0 +1,41 @@
+// SPDX-License-Identifier: MPL-2.0
+// SPDX-FileCopyrightText: 2026 Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= hpm-json-rsr — Roadmap
+v0.1.0-dev, 2026-05-28
+:toc: left
+:toclevels: 2
+
+== v0.1 — Parse + escape (current)
+
+*Status: done in scaffold; awaiting CI / packaging.*
+
+* [x] RSR layout (src/abi/, ffi/zig/)
+* [x] Idris2 ABI: Types + Foreign
+* [x] Zig FFI: parse / free / type / bool / int / float / string /
+  object_get / array_len / array_get / escape_string
+* [x] Zig test suite covering: flat object lookup, nested object
+  lookup, array indexing, type detection, malformed input, escaping
+  edge cases, size-queries
+* [ ] Generated C header `generated/abi/hpm_json.h`
+* [ ] CI: `zig build test` on every PR
+
+== v0.2 — Builder API
+
+*Status: planned.*
+
+* [ ] `hpm_json_builder_new` / `_free`
+* [ ] `hpm_json_builder_object_begin` / `_end` / `_key`
+* [ ] `hpm_json_builder_string` / `_int` / `_float` / `_bool` / `_null`
+* [ ] `hpm_json_builder_array_begin` / `_end`
+* [ ] `hpm_json_builder_serialize` (write to caller buffer)
+
+== v0.3 — Streaming
+
+* [ ] Token-stream parsing for responses larger than the 1 MiB ceiling
+* [ ] JSON-Lines support
+
+== v1.0 — Stable
+
+* [ ] All of v0.1 → v0.3 shipped
+* [ ] Used in production by OikosBot
+* [ ] API surface frozen; semver kicks in

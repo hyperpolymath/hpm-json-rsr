@@ -1,0 +1,13 @@
+-- SPDX-License-Identifier: MPL-2.0
+package hpm-json-rsr
+version = 0.1.0
+
+authors = "Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>"
+license = "MPL-2.0"
+brief = "JSON parsing + escaping primitives (Idris2 ABI + Zig FFI)"
+readme = "README.adoc"
+sourcedir = "src"
+
+modules =
+    HpmJson.ABI.Types,
+    HpmJson.ABI.Foreign
