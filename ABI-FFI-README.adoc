@@ -1,16 +1,11 @@
-<!--
-SPDX-License-Identifier: CC-BY-SA-4.0
-Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
--->
-<!-- SPDX-FileCopyrightText: 2026 Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk> -->
+== hpm-json-rsr ABI/FFI Documentation
 
-# hpm-json-rsr ABI/FFI Documentation
+Built on `+std.json.parseFromSlice+` (Zig stdlib). No external deps.
 
-Built on `std.json.parseFromSlice` (Zig stdlib). No external deps.
+=== C ABI surface
 
-## C ABI surface
-
-```c
+[source,c]
+----
 // Parse + lifecycle
 hpm_json_value_t* hpm_json_parse(const uint8_t* src, size_t src_len);
 void              hpm_json_free(hpm_json_value_t* val);
@@ -47,21 +42,23 @@ hpm_json_value_t* hpm_json_array_get(hpm_json_value_t* val, size_t idx);
 // required size when `cap == 0`, or -1 on cap < req / null pointer.
 ssize_t hpm_json_escape_string(
     const uint8_t* src, size_t src_len, uint8_t* out, size_t cap);
-```
+----
 
-## Types
+=== Types
 
-| Code | Type | Notes |
-|------|------|-------|
-| 0 | null | `{"x": null}` |
-| 1 | bool | `true` / `false` |
-| 2 | integer | parsed as `i64` |
-| 3 | float | `f64`; also "number_string" overflow values |
-| 4 | string | UTF-8 bytes |
-| 5 | array | use `_len` / `_get` |
-| 6 | object | use `_object_get` |
+[cols=",,",options="header",]
+|===
+|Code |Type |Notes
+|0 |null |`+{"x": null}+`
+|1 |bool |`+true+` / `+false+`
+|2 |integer |parsed as `+i64+`
+|3 |float |`+f64+`; also "`number_string`" overflow values
+|4 |string |UTF-8 bytes
+|5 |array |use `+_len+` / `+_get+`
+|6 |object |use `+_object_get+`
+|===
 
-## Limits
+=== Limits
 
-- Max parsed value depth: defaults to `std.json.default_max_value_len`
-- Source bytes: practically unbounded (limited by allocator)
+* Max parsed value depth: defaults to `+std.json.default_max_value_len+`
+* Source bytes: practically unbounded (limited by allocator)
